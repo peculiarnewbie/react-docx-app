@@ -31,6 +31,7 @@ class App extends Component<AppProps, AppState> {
       <div>
         <Hello name={this.state.nama} />
         <Form />
+        <p>{__dirname}</p>
       </div>
     );
   }
