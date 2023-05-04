@@ -1,4 +1,5 @@
 import React from 'react';
+import * as fs from 'fs';
 import { useState } from 'react';
 import { DocumentCreator } from './surat-generator';
 import { saveAs } from 'file-saver';
@@ -12,14 +13,10 @@ export default function Form() {
   const tinggiAsNumber = Number(tinggi);
 
   function generate(nomor, nama, dokter, berat, tinggi): void {
-    const documentCreator = new DocumentCreator();
-    const doc = documentCreator.create([nomor, nama, dokter, berat, tinggi]);
+    const documentCreator = new DocumentCreator(nomor, nama, dokter, berat, tinggi);
+    const doc = documentCreator.create();
 
-    Packer.toBlob(doc).then((blob) => {
-      console.log(blob);
-      saveAs(blob, `${nomor}.${nama}.docx`);
-      console.log('Document created successfully');
-    });
+    
   }
 
   return (
