@@ -15,6 +15,7 @@ import {
   UnderlineType,
   convertInchesToTwip,
   BorderStyle,
+  HorizontalPositionRelativeFrom,
 } from 'docx';
 const PHONE_NUMBER = '07534563401';
 const PROFILE_URL = 'https://www.linkedin.com/in/dolan1';
@@ -37,8 +38,12 @@ export class DocumentCreator {
 
   // tslint:disable-next-line: typedef
   async create() {
-    const blob = await fetch(
-      'https://raw.githubusercontent.com/peculiarnewbie/react-docx-app/main/logo-kesehatan.png'
+    const kemenkes = await fetch(
+      'https://raw.githubusercontent.com/peculiarnewbie/react-docx-app/main/images/logo-kesehatan.png'
+    ).then((r) => r.blob());
+
+    const mdjamil = await fetch(
+      'https://raw.githubusercontent.com/peculiarnewbie/react-docx-app/main/images/rsupmdjamil.png'
     ).then((r) => r.blob());
 
     const doc = new Document({
@@ -46,7 +51,7 @@ export class DocumentCreator {
         default: {
           heading1: {
             run: {
-              size: 48,
+              size: 28,
               bold: true,
               color: '000000',
               font: 'Arial',
@@ -74,8 +79,7 @@ export class DocumentCreator {
           },
           heading3: {
             run: {
-              size: 40,
-              bold: true,
+              size: 24,
               color: '000000',
               font: 'Arial',
             },
@@ -146,10 +150,10 @@ export class DocumentCreator {
                 new Paragraph({
                   children: [
                     new ImageRun({
-                      data: blob,
+                      data: kemenkes,
                       transformation: {
-                        width: 100,
-                        height: 100,
+                        width: 80,
+                        height: 80,
                       },
                       floating: {
                         horizontalPosition: {
@@ -160,8 +164,24 @@ export class DocumentCreator {
                         },
                       },
                     }),
+                    new ImageRun({
+                      data: mdjamil,
+                      transformation: {
+                        width: 80,
+                        height: 80,
+                      },
+                      floating: {
+                        horizontalPosition: {
+                          relative: HorizontalPositionRelativeFrom.RIGHT_MARGIN,
+                          offset: -600000, // relative: HorizontalPositionRelativeFrom.PAGE by default
+                        },
+                        verticalPosition: {
+                          offset: 480000, // relative: VerticalPositionRelativeFrom.PAGE by default
+                        },
+                      },
+                    }),
                     new Paragraph({
-                      text: 'KEMENTRIAN KESEHATAN RI',
+                      text: 'KEMENTRIAN KESEHATAN REPUBLIK INDONESIA',
                       heading: HeadingLevel.HEADING_1,
                       alignment: AlignmentType.CENTER,
                     }),
@@ -171,7 +191,7 @@ export class DocumentCreator {
                       alignment: AlignmentType.CENTER,
                     }),
                     new Paragraph({
-                      text: 'RSUP. DR. M. DJAMIL PADANG',
+                      text: 'RUMAH SAKIT UMUM PUSAT DR. M. DJAMIL PADANG',
                       heading: HeadingLevel.HEADING_3,
                       alignment: AlignmentType.CENTER,
                     }),
@@ -180,11 +200,11 @@ export class DocumentCreator {
                       alignment: AlignmentType.CENTER,
                     }),
                     new Paragraph({
-                      text: 'Telepon...',
+                      text: 'Phone: (0751) 32371, 810253, 810254 Fax : (0751) 32371',
                       alignment: AlignmentType.CENTER,
                     }),
                     new Paragraph({
-                      text: 'Email...',
+                      text: 'Website : www.rsdjamil.co.id, email : rsupdjamil@yahoo.com',
                       alignment: AlignmentType.CENTER,
                       style: 'headerLine',
                       border: {
