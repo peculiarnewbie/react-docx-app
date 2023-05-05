@@ -221,10 +221,69 @@ export class DocumentCreator {
             }),
           },
           children: [
+            new Paragraph({
+              text: `No.Indek:1.7d.023`,
+              alignment: AlignmentType.RIGHT,
+            }),
+            new Paragraph({
+              alignment: AlignmentType.CENTER,
+              children: [
+                new TextRun({
+                  text: 'SURAT KETERANGAN KESEHATAN UMUM',
+                  bold: true,
+                  underline: {
+                    type: UnderlineType.SINGLE,
+                    color: '000000',
+                  },
+                }),
+              ],
+            }),
+            new Paragraph({
+              text: `NO. ${this.nomor}/INST.RJ-RSMD/IV/2023`,
+              alignment: AlignmentType.CENTER,
+            }),
             this.createHeaderSurat(this.nomor),
             new Paragraph({
-              text: this.nama,
-              heading: HeadingLevel.TITLE,
+              children: [
+                new TextRun({
+                  text: `Yang bertanda tangan dibawah ini menerangkan bahwa:`,
+                  break: 3,
+                }),
+              ],
+            }),
+            new Paragraph({
+              indent: {
+                left: 600,
+              },
+              spacing: {
+                line: 400,
+              },
+              children: [
+                new TextRun({
+                  text: `Nama\t\t: `,
+                  break: 1,
+                }),
+                new TextRun({
+                  text: this.nama,
+                  bold: true,
+                }),
+                new TextRun({
+                  text: `Tempat/Tgl Lahir\t: `,
+                  break: 1,
+                }),
+                new TextRun({
+                  text: `Jenis Kelamin\t: `,
+                  break: 1,
+                }),
+                new TextRun({
+                  text: `Pekerjaan\t\t: `,
+                  break: 1,
+                }),
+                new TextRun({
+                  text: `Alamat\t\t: `,
+                  break: 1,
+                }),
+              ],
             }),
             new Paragraph({
               text: `Berat: ${this.berat}kg`,
